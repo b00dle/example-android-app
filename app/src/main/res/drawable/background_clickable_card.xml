@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape>
+            <size android:height="64dp" android:width="64dp" />
+            <solid android:color="@color/design_default_color_primary" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape>
+            <size android:height="64dp" android:width="64dp" />
+            <solid android:color="@color/design_default_color_primary" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    <item android:state_enabled="false">
+        <shape>
+            <size android:height="64dp" android:width="64dp" />
+            <solid android:color="@color/material_on_background_disabled" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <size android:height="64dp" android:width="64dp" />
+            <solid android:color="@color/cardview_dark_background" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+</selector>

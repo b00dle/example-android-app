@@ -43,4 +43,10 @@ class MainActivity : AppCompatActivity() {
             router.setRoot(RouterTransaction.with(HomeController()))
         }
     }
+
+    override fun onBackPressed() {
+        if (!router.handleBack()) {
+            super.onBackPressed()
+        }
+    }
 }

@@ -5,6 +5,12 @@ plugins {
     id 'kotlin-kapt'
 }
 
+def getApiToken() {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    return properties.getProperty("api.token")
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -22,21 +28,55 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "Boolean", "FEATURE_OK_HTTP_VERBOSE", "false"
     }
 
     buildTypes {
+        debug {
+            debuggable true
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions 'env'
+
+    productFlavors {
+        // run this flavor for localhost testing of api during development
+        dev {
+            dimension 'env'
+
+            buildConfigField 'String', 'API_BASE_URL', '"http://10.0.2.2:44100/"'
+            buildConfigField 'String', 'API_URL', '"http://10.0.2.2:44100/api/"'
+            buildConfigField "String", "API_ACCESS_TOKEN", "\""+getApiToken()+"\""
+
+            applicationIdSuffix '.dev'
+        }
+
+        // flavor for a packaged version of the app
+        live {
+            dimension 'env'
+
+            // specify Live (external) API paths here
+            buildConfigField 'String', 'API_BASE_URL', '"http://10.0.2.2:44100/"'
+            buildConfigField 'String', 'API_URL', '"http://10.0.2.2:44100/api/"'
+            buildConfigField "String", "API_ACCESS_TOKEN", "\""+getApiToken()+"\""
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     repositories {
         maven { url 'https://jitpack.io' }
     }
