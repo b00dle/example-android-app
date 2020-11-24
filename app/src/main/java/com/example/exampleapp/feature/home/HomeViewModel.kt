@@ -4,9 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import com.example.exampleapp.feature.base.BaseViewModel
 
 class HomeViewModel: BaseViewModel() {
-    val leaveScreen = MutableLiveData<Boolean>()
+    val leaveToDataset = MutableLiveData<Boolean>()
+    val leaveToWebvis = MutableLiveData<Boolean>()
 
-    fun onContinueClicked() {
-        leaveScreen.postValue(true)
+    fun onGetDataClicked() {
+        leaveToDataset.postValue(true)
+    }
+
+    fun onShowGraphClicked() {
+        leaveToWebvis.postValue(true)
     }
 }

@@ -20,10 +20,24 @@ class HomeController: BaseController<ControllerHomeBinding>(R.layout.controller_
         private val LINKED_API_BASE = BuildConfig.API_BASE_URL.let {
             "<a href=\"$it\">$it</a>"
         }
+
+        private val LINKED_VISU = BuildConfig.API_BASE_URL.let {
+            "<a href=\"${it}para-cords\">${it}para-cords</a>"
+        }
     }
 
-    private val homeText by lazy {
-        ctx.getString(R.string.home_text, LINKED_API_BASE).let {
+    private val textGetData by lazy {
+        ctx.getString(R.string.home_pull_data, LINKED_API_BASE).let {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(it, Html.FROM_HTML_MODE_LEGACY)
+            } else {
+                Html.fromHtml(it)
+            }
+        }
+    }
+
+    private val textShowGraph by lazy {
+        ctx.getString(R.string.home_show_web_visualization, LINKED_VISU).let {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Html.fromHtml(it, Html.FROM_HTML_MODE_LEGACY)
             } else {
@@ -43,21 +57,38 @@ class HomeController: BaseController<ControllerHomeBinding>(R.layout.controller_
     }
 
     private fun initializeUi() {
-        binding.textViewDescription.text = homeText
-        binding.textViewDescription.movementMethod = LinkMovementMethod.getInstance()
+        binding.textViewData.apply {
+            text = textGetData
+            movementMethod = LinkMovementMethod.getInstance()
+        }
+        binding.textViewVisualization.apply {
+            text = textShowGraph
+            movementMethod = LinkMovementMethod.getInstance()
+        }
     }
 
     override fun onSetupViewBinding() {
-        disposables += binding.buttonContinue.clicks()
+        disposables += binding.buttonData.clicks()
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .subscribe {
-                viewModel.onContinueClicked()
+                viewModel.onGetDataClicked()
+            }
+
+        disposables += binding.buttonShow.clicks()
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .subscribe {
+                viewModel.onShowGraphClicked()
             }
     }
 
     override fun onSetupViewModelBinding() {
-        viewModel.leaveScreen.observe(this) {
-            viewModel.leaveScreen.postValue(null)
+        viewModel.leaveToDataset.observe(this) {
+            viewModel.leaveToDataset.postValue(null)
+            router.pushAndFade(DatasetController())
+        }
+
+        viewModel.leaveToWebvis.observe(this) {
+            viewModel.leaveToWebvis.postValue(null)
             router.pushAndFade(WebvisController())
         }
     }

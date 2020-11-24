@@ -3,7 +3,8 @@
     <string name="app_shared_preferences">ExampleAppSharedPreferences</string>
 
     <string name="home_title">Welcome!</string>
-    <string name="home_text">This app pulls data from a sample API hosted at %1$s. The server should be running a ReST API similar to <![CDATA[<a href="https://github.com/b00dle/example-python-server">this</a>]]>. Press the button below to attempt pulling some data!</string>
+    <string name="home_pull_data">This app can pull data from a sample API hosted at %1$s. The server should be running a ReST API similar to <![CDATA[<a href="https://github.com/b00dle/example-python-server">this</a>]]>.&lt;br /&gt;&lt;br /&gt;Press the button below to attempt pulling some data!</string>
+    <string name="home_show_web_visualization">This app can also show a d3 parallel coordinates visualization hosted at %1$s.&lt;br /&gt;&lt;br /&gt;Press the button below to attempt showing it!</string>
 
     <string name="title">Title</string>
     <string name="hipsum">I am baby helvetica PBRnB coloring book salvia occupy +1. Plaid cray meh, cronut neutra gochujang pok pok butcher williamsburg schlitz pug chia direct trade. Try-hard waistcoat mumblecore gentrify shabby chic single-origin coffee whatever stumptown cred 90s. Bicycle rights cray fixie squid pitchfork affogato PBRnB, taxidermy bespoke health goth hot chicken seitan pinterest plaid.</string>
