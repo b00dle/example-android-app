@@ -8,6 +8,7 @@ import com.example.exampleapp.R
 import com.example.exampleapp.databinding.ControllerHomeBinding
 import com.example.exampleapp.feature.base.BaseController
 import com.example.exampleapp.feature.dataset.DatasetController
+import com.example.exampleapp.feature.webvis.WebvisController
 import com.example.exampleapp.utils.observe
 import com.example.exampleapp.utils.pushAndFade
 import com.jakewharton.rxbinding3.view.clicks
@@ -57,7 +58,7 @@ class HomeController: BaseController<ControllerHomeBinding>(R.layout.controller_
     override fun onSetupViewModelBinding() {
         viewModel.leaveScreen.observe(this) {
             viewModel.leaveScreen.postValue(null)
-            router.pushAndFade(DatasetController())
+            router.pushAndFade(WebvisController())
         }
     }
 }
